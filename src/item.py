@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -13,7 +16,16 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        pass
+        self.__name = name
+        self.price = price
+        self.quantity = quantity
+        self.all.append(self)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return f'{self.__name}'
 
     def calculate_total_price(self) -> float:
         """
@@ -21,10 +33,12 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        pass
+        total_price = self.price * self.quantity
+        return total_price
 
     def apply_discount(self) -> None:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        pass
+        self.price *= self.pay_rate
+        return self
