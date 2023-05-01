@@ -19,13 +19,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        self.all.append(self)
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
-
-    def __str__(self):
-        return f'{self.__name}'
 
     def calculate_total_price(self) -> float:
         """
@@ -41,4 +35,36 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= self.pay_rate
-        return self
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        if len(name) <= 10:
+            self.__name = name
+        else:
+            print('Длина наименования товара превышает 10 символов')
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv
+        """
+
+        with open(r"C:\Users\Lenovo\electronics-shop-project\src\items.csv", newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            cls.all.clear()
+            for row in reader:
+                cls.all.append(cls(row['name'], row['price'], row['quantity']))
+        return cls.all
+
+    @staticmethod
+    def string_to_number(num):
+        """
+        Статический метод, возвращающий число из числа-строки
+        """
+        return int(float(num))
+
+
