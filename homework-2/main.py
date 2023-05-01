@@ -1,5 +1,7 @@
 from src.item import Item
 
+PATH = r"C:\Users\Lenovo\electronics-shop-project\src\items.csv"
+
 if __name__ == '__main__':
     item = Item('Телефон', 10000, 5)
 
@@ -12,7 +14,6 @@ if __name__ == '__main__':
     # Exception: Длина наименования товара превышает 10 символов.
 
     Item.instantiate_from_csv()  # создание объектов из данных файла
-    print(Item.instantiate_from_csv())  # строчка для проверки вывода списка
     assert len(Item.all) == 5  # в файле 5 записей с данными по товарам
 
     item1 = Item.all[0]

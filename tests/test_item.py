@@ -1,5 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
+import pytest
 
 def test_calculate_total_price():
     item1 = Item("Смартфон", 10000, 20)
@@ -18,9 +19,10 @@ def test_apply_discount():
 
     def test_name():
         item = Item('Смартфон', 10000, 5)
-        assert item.name == "Смартфон"
-        item = Item('СуперСмартфон', 10000, 5)
-        assert print('Длина наименования товара превышает 10 символов')
+        item.name = "Телефон"
+        assert item.name == "Телефон"
+        with pytest.raises(Exception):
+            item.name = "Супер_Телефон"
 
     def test_instantiate_from_csv():
         Item.instantiate_from_csv()
