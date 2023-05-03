@@ -1,13 +1,11 @@
 from src.item import Item
 
-PATH = r"C:\Users\Lenovo\electronics-shop-project\src\items.csv"
-
 if __name__ == '__main__':
     item = Item('Телефон', 10000, 5)
 
     # длина наименования товара меньше 10 символов
-    item.__name = 'Смартфон'
-    assert item.__name == 'Смартфон'
+    item.name = 'Смартфон'
+    assert item.name == 'Смартфон'
 
     # длина наименования товара больше 10 символов
     item.__name = 'СуперСмартфон'
