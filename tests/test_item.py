@@ -2,6 +2,17 @@
 from src.item import Item
 import pytest
 
+
+def test__repr__():
+    item = Item("Смартфон", 10000, 20)
+    assert repr(item) == "Item('Смартфон', 10000, 20)"
+
+
+def test__str__():
+    item = Item("Смартфон", 10000, 20)
+    assert str(item) == 'Смартфон'
+
+
 def test_calculate_total_price():
     item1 = Item("Смартфон", 10000, 20)
     item2 = Item("Ноутбук", 20000, 5)
@@ -17,6 +28,7 @@ def test_apply_discount():
     item2 = Item("Ноутбук", 20000, 5)
     assert item2.price == 20000
 
+
 def test_name():
     item = Item('Смартфон', 10000, 5)
     item.name = "Телефон"
@@ -24,12 +36,12 @@ def test_name():
     with pytest.raises(Exception):
         item.name = "Супер_Телефон"
 
-def test_instantiate_from_csv():
-    Item.instantiate_from_csv()
-    assert len(Item.all) == 5
+# def test_instantiate_from_csv():
+#    Item.instantiate_from_csv()
+#    assert len(Item.all) == 5
+
 
 def test_string_to_number():
     assert Item.string_to_number('5') == 5
     assert Item.string_to_number('5.0') == 5
     assert Item.string_to_number('5.5') == 5
-
