@@ -1,6 +1,11 @@
 import csv
 
 
+class InstantiateCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.message = 'Файл items.csv поврежден'
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -60,17 +65,24 @@ class Item:
             raise Exception('Длина наименования товара превышает 10 символов')
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path=r"../src/items.csv"):
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv
         """
-        path = r"..\src\items.csv"
 
-        with open(path, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            cls.all.clear()
-            for row in reader:
-                item = (cls(row['name'], row['price'], row['quantity']))
+        try:
+            with open(path, newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                cls.all.clear()
+
+            try:
+                for row in reader:
+                    item = (cls(row['name'], row['price'], row['quantity']))
+            except KeyError:
+                raise InstantiateCSVError('Файл items.csv поврежден')
+
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл items.csv')
 
     @staticmethod
     def string_to_number(num):
@@ -78,3 +90,15 @@ class Item:
         Статический метод, возвращающий число из числа-строки
         """
         return int(float(num))
+
+        #
+        # try:
+        #     with open(path, newline='') as csvfile:
+        #         reader = csv.DictReader(csvfile)
+        #         try:
+        #             for row in reader:
+        #                 cls(row['name'], row['price'], row['quantity'])
+        #         except KeyError:
+        #             raise InstantiateCSVError("item.csv file is corrupted")
+        # except FileNotFoundError:
+        #     raise FileNotFoundError("file items.csv does not exist or bad directory")
