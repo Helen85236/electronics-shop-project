@@ -75,11 +75,11 @@ class Item:
                 reader = csv.DictReader(csvfile)
                 cls.all.clear()
 
-            try:
-                for row in reader:
-                    item = (cls(row['name'], row['price'], row['quantity']))
-            except KeyError:
-                raise InstantiateCSVError('Файл items.csv поврежден')
+                try:
+                    for row in reader:
+                        item = (cls(row['name'], row['price'], row['quantity']))
+                except KeyError:
+                    raise InstantiateCSVError('Файл items.csv поврежден')
 
         except FileNotFoundError:
             raise FileNotFoundError('Отсутствует файл items.csv')

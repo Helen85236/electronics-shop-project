@@ -53,7 +53,7 @@ def test_instantiate_from_csv():
         Item.instantiate_from_csv(path="нет такого файла")
 
     with pytest.raises(InstantiateCSVError):
-        Item.instantiate_from_csv(path=r"src/items.csv")
+        Item.instantiate_from_csv(path=r"../src/items_test.csv")
 
 
 def test_string_to_number():
